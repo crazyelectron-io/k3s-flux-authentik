@@ -25,11 +25,17 @@ spec:
   values:
     # notes: See https://github.com/goauthentik/helm/blob/main/charts/authentik/values.yaml
     global:
-        # To prevent "Permission denied" on `/media/public` (see also https://github.com/goauthentik/authentik/issues/11041)
+      revisionHistoryLimit: 5
+      image:
+        repository: ${SECRET_HARBOR_URL}
+      # To prevent "Permission denied" on `/media/public` (see also https://github.com/goauthentik/authentik/issues/11041)
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+      envFrom:
+        - secretRef:
+            name: authentik-secrets
     authentik:
       # -- Log level for server and worker
       log_level: info
@@ -43,9 +49,6 @@ spec:
         user: ${SECRET_AUTHENTIK_PG_USER}
         password: ${SECRET_AUTHENTIK_PG_PASSWORD}
         port: 5432
-      # envFrom:
-      #   - secretRef:
-      #       name: authentik-secrets
     server:
       name: authserver
       replicas: 1
