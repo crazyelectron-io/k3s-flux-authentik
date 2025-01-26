@@ -71,10 +71,10 @@ spec:
       #       claimName: authentik-media
     postgresql:
       enabled: false
-    # redis:
-    #   enabled: true
-    #   auth:
-    #     enabled: false
+    redis:
+      enabled: true
+      auth:
+        enabled: false
     # prometheus:
     #   rules:
     #     enabled: true
