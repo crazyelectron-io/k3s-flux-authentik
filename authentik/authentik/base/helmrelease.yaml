@@ -43,9 +43,9 @@ spec:
         user: ${SECRET_AUTHENTIK_PG_USER}
         password: ${SECRET_AUTHENTIK_PG_PASSWORD}
         port: 5432
-      envFrom:
-        - secretRef:
-            name: authentik-secrets
+      # envFrom:
+      #   - secretRef:
+      #       name: authentik-secrets
     server:
       name: authserver
       replicas: 1
