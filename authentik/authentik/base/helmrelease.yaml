@@ -49,10 +49,10 @@ spec:
     server:
       name: authserver
       replicas: 1
-      # containerPorts:
-      #   http: 9000
-      #   https: 9443
-      #   metrics: 9300
+      containerPorts:
+        http: 9000
+        https: 9443
+        metrics: 9300
       ingress:
         enabled: false
       metrics:
