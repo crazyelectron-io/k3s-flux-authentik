@@ -24,12 +24,12 @@ spec:
       retries: 5
   values:
     # notes: See https://github.com/goauthentik/helm/blob/main/charts/authentik/values.yaml
-    # global:
+    global:
         # To prevent "Permission denied" on `/media/public` (see also https://github.com/goauthentik/authentik/issues/11041)
-      # securityContext:
-      #   runAsUser: 1000
-      #   runAsGroup: 1000
-      #   fsGroup: 1000
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
     authentik:
       # -- Log level for server and worker
       log_level: info
