@@ -55,26 +55,26 @@ spec:
       #   metrics: 9300
       ingress:
         enabled: false
-      # metrics:
-      #   enabled: true
-      #   serviceMonitor:
-      #     enabled: true
-    # worker:
-    #   name: authworker
-      # replicas: 1
-      # volumeMounts:
-      #   - name: authentik-media
-      #     mountPath: /media
-      # volumes:
-      #   - name: authentik-media
-      #     persistentVolumeClaim:
-      #       claimName: authentik-media
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    worker:
+      name: authworker
+      replicas: 1
+      volumeMounts:
+        - name: authentik-media
+          mountPath: /media
+      volumes:
+        - name: authentik-media
+          persistentVolumeClaim:
+            claimName: authentik-media
     postgresql:
       enabled: false
     redis:
       enabled: true
       auth:
         enabled: false
-    # prometheus:
-    #   rules:
-    #     enabled: true
+    prometheus:
+      rules:
+        enabled: true
