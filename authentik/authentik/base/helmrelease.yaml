@@ -25,10 +25,11 @@ spec:
   values:
     # notes: See https://github.com/goauthentik/helm/blob/main/charts/authentik/values.yaml
     global:
-      revisionHistoryLimit: 5
+      # Default image used by all authentik components. For GeoIP configuration, see the geoip values below.
       image:
         repository: ${SECRET_HARBOR_URL}/authentik-server
         tag: 2024.12.2
+      revisionHistoryLimit: 5
       # To prevent "Permission denied" on `/media/public` (see also https://github.com/goauthentik/authentik/issues/11041)
       securityContext:
         runAsUser: 1000
@@ -37,6 +38,7 @@ spec:
       envFrom:
         - secretRef:
             name: authentik-secrets
+
     authentik:
       # -- Log level for server and worker
       log_level: info
@@ -63,6 +65,7 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+
     worker:
       name: authworker
       replicas: 1
@@ -73,12 +76,20 @@ spec:
         - name: authentik-media
           persistentVolumeClaim:
             claimName: authentik-media
+
     postgresql:
       enabled: false
+
     redis:
       enabled: true
       auth:
         enabled: false
+
     prometheus:
       rules:
         enabled: true
+        namespace: monitoring-system
+        selector: {}
+          # prometheus: kube-prometheus-stack-prometheus
+        labels: {}
+        annotations: {}
