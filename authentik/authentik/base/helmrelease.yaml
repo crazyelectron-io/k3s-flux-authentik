@@ -23,6 +23,7 @@ spec:
     remediation:
       retries: 5
   values:
+
     # notes: See https://github.com/goauthentik/helm/blob/main/charts/authentik/values.yaml
     global:
       # Default image used by all authentik components. For GeoIP configuration, see the geoip values below.
