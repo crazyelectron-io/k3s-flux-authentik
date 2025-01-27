@@ -53,6 +53,7 @@ spec:
         user: ${SECRET_AUTHENTIK_PG_USER}
         password: ${SECRET_AUTHENTIK_PG_PASSWORD}
         port: 5432
+
     server:
       name: authserver
       replicas: 1
@@ -60,12 +61,42 @@ spec:
         http: 9000
         https: 9443
         metrics: 9300
+      env:
+       - name: TMPDIR
+         value: /tmp
       ingress:
         enabled: false
       metrics:
         enabled: true
         serviceMonitor:
           enabled: true
+      livenessProbe:
+        failureThreshold: 5
+        initialDelaySeconds: 60
+        periodSeconds: 15
+        successThreshold: 1
+        timeoutSeconds: 2
+        httpGet:
+          path: "/-/health/live/"
+          port: http
+      readinessProbe:
+        failureThreshold: 5
+        initialDelaySeconds: 60
+        periodSeconds: 15
+        successThreshold: 1
+        timeoutSeconds: 2
+        httpGet:
+          path: "/-/health/ready/"
+          port: http
+      startupProbe:
+        failureThreshold: 60
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 2
+        httpGet:
+          path: "/-/health/live/"
+          port: http
 
     worker:
       name: authworker
@@ -73,6 +104,9 @@ spec:
         repository: ${SECRET_HARBOR_URL}/authentik-server
         tag: 2024.12.2
       replicas: 1
+      env:
+       - name: TMPDIR
+         value: /tmp
       volumeMounts:
         - name: authentik-media
           mountPath: /media
@@ -80,6 +114,36 @@ spec:
         - name: authentik-media
           persistentVolumeClaim:
             claimName: authentik-media
+      livenessProbe:
+        failureThreshold: 5
+        initialDelaySeconds: 15
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 2
+        exec:
+          command:
+            - ak
+            - healthcheck
+      readinessProbe:
+        failureThreshold: 5
+        initialDelaySeconds: 15
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 2
+        exec:
+          command:
+            - ak
+            - healthcheck
+      startupProbe:
+        failureThreshold: 60
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 2
+        exec:
+          command:
+            - ak
+            - healthcheck
 
     postgresql:
       enabled: false
