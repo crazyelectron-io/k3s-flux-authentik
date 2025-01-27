@@ -69,6 +69,9 @@ spec:
 
     worker:
       name: authworker
+      image:
+        repository: ${SECRET_HARBOR_URL}/authentik-server
+        tag: 2024.12.2
       replicas: 1
       volumeMounts:
         - name: authentik-media
