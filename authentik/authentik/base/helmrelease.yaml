@@ -87,7 +87,7 @@ spec:
           port: http
       startupProbe:
         failureThreshold: 10
-        initialDelaySeconds: 30
+        initialDelaySeconds: 60
         periodSeconds: 10
         successThreshold: 1
         timeoutSeconds: 1
@@ -130,7 +130,7 @@ spec:
             - healthcheck
       startupProbe:
         failureThreshold: 10
-        initialDelaySeconds: 30
+        initialDelaySeconds: 60
         periodSeconds: 10
         successThreshold: 1
         timeoutSeconds: 1
