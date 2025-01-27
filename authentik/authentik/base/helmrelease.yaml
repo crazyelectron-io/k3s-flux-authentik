@@ -27,7 +27,8 @@ spec:
     global:
       revisionHistoryLimit: 5
       image:
-        repository: ${SECRET_HARBOR_URL}
+        repository: ${SECRET_HARBOR_URL}/authentik-server
+        tag: 2024.12.2
       # To prevent "Permission denied" on `/media/public` (see also https://github.com/goauthentik/authentik/issues/11041)
       securityContext:
         runAsUser: 1000
