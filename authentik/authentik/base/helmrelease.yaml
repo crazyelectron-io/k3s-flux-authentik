@@ -61,9 +61,6 @@ spec:
         http: 9000
         https: 9443
         metrics: 9300
-      env:
-       - name: TMPDIR
-         value: /tmp
       ingress:
         enabled: false
       metrics:
@@ -104,9 +101,6 @@ spec:
         repository: ${SECRET_HARBOR_URL}/authentik-server
         tag: 2024.12.2
       replicas: 1
-      env:
-       - name: TMPDIR
-         value: /tmp
       volumeMounts:
         - name: authentik-media
           mountPath: /media
