@@ -67,33 +67,33 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-      livenessProbe:
-        failureThreshold: 10
-        initialDelaySeconds: 90
-        periodSeconds: 30
-        successThreshold: 1
-        timeoutSeconds: 1
-        httpGet:
-          path: "/-/health/live/"
-          port: http
-      readinessProbe:
-        failureThreshold: 10
-        initialDelaySeconds: 60
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 1
-        httpGet:
-          path: "/-/health/ready/"
-          port: http
-      startupProbe:
-        failureThreshold: 10
-        initialDelaySeconds: 60
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 1
-        httpGet:
-          path: "/-/health/live/"
-          port: http
+      # livenessProbe:
+      #   failureThreshold: 10
+      #   initialDelaySeconds: 90
+      #   periodSeconds: 30
+      #   successThreshold: 1
+      #   timeoutSeconds: 1
+      #   httpGet:
+      #     path: "/-/health/live/"
+      #     port: http
+      # readinessProbe:
+      #   failureThreshold: 10
+      #   initialDelaySeconds: 60
+      #   periodSeconds: 10
+      #   successThreshold: 1
+      #   timeoutSeconds: 1
+      #   httpGet:
+      #     path: "/-/health/ready/"
+      #     port: http
+      # startupProbe:
+      #   failureThreshold: 10
+      #   initialDelaySeconds: 60
+      #   periodSeconds: 10
+      #   successThreshold: 1
+      #   timeoutSeconds: 1
+      #   httpGet:
+      #     path: "/-/health/live/"
+      #     port: http
 
     worker:
       name: authworker
@@ -108,36 +108,36 @@ spec:
         - name: authentik-media
           persistentVolumeClaim:
             claimName: authentik-media
-      livenessProbe:
-        failureThreshold: 10
-        initialDelaySeconds: 90
-        periodSeconds: 30
-        successThreshold: 1
-        timeoutSeconds: 1
-        exec:
-          command:
-            - ak
-            - healthcheck
-      readinessProbe:
-        failureThreshold: 10
-        initialDelaySeconds: 60
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 1
-        exec:
-          command:
-            - ak
-            - healthcheck
-      startupProbe:
-        failureThreshold: 10
-        initialDelaySeconds: 60
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 1
-        exec:
-          command:
-            - ak
-            - healthcheck
+      # livenessProbe:
+      #   failureThreshold: 10
+      #   initialDelaySeconds: 90
+      #   periodSeconds: 30
+      #   successThreshold: 1
+      #   timeoutSeconds: 1
+      #   exec:
+      #     command:
+      #       - ak
+      #       - healthcheck
+      # readinessProbe:
+      #   failureThreshold: 10
+      #   initialDelaySeconds: 60
+      #   periodSeconds: 10
+      #   successThreshold: 1
+      #   timeoutSeconds: 1
+      #   exec:
+      #     command:
+      #       - ak
+      #       - healthcheck
+      # startupProbe:
+      #   failureThreshold: 10
+      #   initialDelaySeconds: 60
+      #   periodSeconds: 10
+      #   successThreshold: 1
+      #   timeoutSeconds: 1
+      #   exec:
+      #     command:
+      #       - ak
+      #       - healthcheck
 
     postgresql:
       enabled: false
