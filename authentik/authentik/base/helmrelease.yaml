@@ -68,17 +68,17 @@ spec:
         serviceMonitor:
           enabled: true
       livenessProbe:
-        failureThreshold: 3
-        initialDelaySeconds: 10
-        periodSeconds: 10
+        failureThreshold: 10
+        initialDelaySeconds: 90
+        periodSeconds: 30
         successThreshold: 1
         timeoutSeconds: 1
         httpGet:
           path: "/-/health/live/"
           port: http
       readinessProbe:
-        failureThreshold: 3
-        initialDelaySeconds: 5
+        failureThreshold: 10
+        initialDelaySeconds: 60
         periodSeconds: 10
         successThreshold: 1
         timeoutSeconds: 1
@@ -86,8 +86,8 @@ spec:
           path: "/-/health/ready/"
           port: http
       startupProbe:
-        failureThreshold: 60
-        initialDelaySeconds: 5
+        failureThreshold: 10
+        initialDelaySeconds: 30
         periodSeconds: 10
         successThreshold: 1
         timeoutSeconds: 1
@@ -109,9 +109,9 @@ spec:
           persistentVolumeClaim:
             claimName: authentik-media
       livenessProbe:
-        failureThreshold: 3
-        initialDelaySeconds: 5
-        periodSeconds: 10
+        failureThreshold: 10
+        initialDelaySeconds: 90
+        periodSeconds: 30
         successThreshold: 1
         timeoutSeconds: 1
         exec:
@@ -119,8 +119,8 @@ spec:
             - ak
             - healthcheck
       readinessProbe:
-        failureThreshold: 3
-        initialDelaySeconds: 10
+        failureThreshold: 10
+        initialDelaySeconds: 60
         periodSeconds: 10
         successThreshold: 1
         timeoutSeconds: 1
@@ -129,7 +129,7 @@ spec:
             - ak
             - healthcheck
       startupProbe:
-        failureThreshold: 30
+        failureThreshold: 10
         initialDelaySeconds: 30
         periodSeconds: 10
         successThreshold: 1
