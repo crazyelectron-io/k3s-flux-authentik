@@ -8,3 +8,4 @@ resources:
   - secret.sops.yaml
   - cloudnativepg/kustomization-fluxCRD.yaml
   - authentik/kustomization-fluxCRD.yaml
+  - outpost/kustomization-fluxCRD.yaml
