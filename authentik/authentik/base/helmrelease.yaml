@@ -40,6 +40,7 @@ spec:
         - secretRef:
             name: authentik-secrets
 
+    # Authentik configuration
     authentik:
       # -- Log level for server and worker
       log_level: info
@@ -54,6 +55,15 @@ spec:
         password: ${SECRET_AUTHENTIK_PG_PASSWORD}
         port: 5432
 
+    blueprints:
+      # -- List of config maps to mount blueprints from.
+      # Only keys in the configMap ending with `.yaml` will be discovered and applied.
+      configMaps: []
+      # -- List of secrets to mount blueprints from.
+      # Only keys in the secret ending with `.yaml` will be discovered and applied.
+      secrets: []
+
+    # Authentik server
     server:
       name: authserver
       replicas: 1
@@ -95,6 +105,7 @@ spec:
       #     path: "/-/health/live/"
       #     port: http
 
+    # AUthentik worker
     worker:
       name: authworker
       image:
@@ -108,6 +119,13 @@ spec:
         - name: authentik-media
           persistentVolumeClaim:
             claimName: authentik-media
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          memory: 1024Mi
+          cpu: 500m
       # livenessProbe:
       #   failureThreshold: 10
       #   initialDelaySeconds: 90
@@ -139,11 +157,17 @@ spec:
       #       - ak
       #       - healthcheck
 
+    # geoip:
+    #   enabled: true=
+    #   url: https://example.com/GeoLite2-City.mmdb
+    #   interval: 8
+
     postgresql:
       enabled: false
 
     redis:
       enabled: true
+      architecture: standalone
       auth:
         enabled: false
 
