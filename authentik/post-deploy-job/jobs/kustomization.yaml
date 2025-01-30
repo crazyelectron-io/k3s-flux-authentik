@@ -8,6 +8,6 @@ resources:
 configMapGenerator:
   - name: users-script-configmap
     files:
-      - create-users.sh
+      - create_users.sh
     options:
       disableNameSuffixHash: true
