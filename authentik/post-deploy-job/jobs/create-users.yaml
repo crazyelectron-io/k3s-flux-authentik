@@ -13,14 +13,14 @@ spec:
       containers:
         - name: authentik-user-accounts
           image: debian:12.6-slim
-          command: ["/bin/bash", "-c", "/mnt/scripts/create-users.sh"]
+          command: ["/bin/bash", "-c", "/mnt/scripts/createusers.sh"]
           volumeMounts:
           - name: script-volume
             mountPath: /mnt/scripts
       initContainers:
       - name: init-permissions
         image: debian:12.6-slim
-        command: ["/bin/bash", "-c", "cp /scripts/create-users.sh /mnt/scripts/create-users.sh && chmod +x /mnt/scripts/create-users.sh"]
+        command: ["/bin/bash", "-c", "cp /scripts/createusers.sh /mnt/scripts/createusers.sh && chmod +x /mnt/scripts/createusers.sh"]
         volumeMounts:
         - name: users-account-script
           mountPath: /scripts
