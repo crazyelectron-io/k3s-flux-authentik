@@ -1,0 +1,82 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app authentik
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: *app
+      version: 2024.12.2
+      sourceRef:
+        kind: HelmRepository
+        name: authentik-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    # notes: See https://github.com/goauthentik/helm/blob/main/charts/authentik/values.yaml
+    global:
+      # Default image used by all authentik components. For GeoIP configuration, see the geoip values below.
+      image:
+        repository: ${SECRET_HARBOR_URL}/authentik-server
+        tag: 2024.12.2
+      revisionHistoryLimit: 5
+      # To prevent "Permission denied" on `/media/public` (see also https://github.com/goauthentik/authentik/issues/11041)
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      envFrom:
+        - secretRef:
+            name: authentik-secrets
+    authentik:
+      log_level: info
+      secret_key: ${SECRET_AUTHENTIK_SIGNING_KEY}
+      error_reporting:
+        enabled: true
+      postgresql:
+        host: authentik-cluster-rw.authentication-system.svc.cluster.local
+        name: authentik_db
+        user: ${SECRET_AUTHENTIK_PG_USER}
+        password: ${SECRET_AUTHENTIK_PG_PASSWORD}
+        port: 5432
+    server:
+      name: authserver
+      ingress:
+        enabled: false
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    worker:
+      name: authworker
+      volumeMounts:
+        - name: authentik-media
+          mountPath: /media
+      volumes:
+        - name: authentik-media
+          persistentVolumeClaim:
+            claimName: authentik-media
+    postgresql:
+      enabled: false
+    redis:
+      enabled: true
+      auth:
+        enabled: false
+    prometheus:
+      rules:
+        enabled: true
+        namespace: monitoring-system
+        selector: {}
+          # prometheus: kube-prometheus-stack-prometheus
+        labels: {}
+        annotations: {}

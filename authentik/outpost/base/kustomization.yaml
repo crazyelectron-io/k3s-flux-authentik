@@ -1,0 +1,22 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/kustomization.json
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: authentication-system
+resources:
+  - secret.sops.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingressroute.yaml
+# configMapGenerator:
+#   - name: authentik-config
+#     files:
+#       - configuration.yaml
+#       - automations.yaml
+#       - scripts.yaml
+#       - scenes.yaml
+#       - core.config
+#       - http
+#       - onboarding
+# generatorOptions:
+#   disableNameSuffixHash: true
