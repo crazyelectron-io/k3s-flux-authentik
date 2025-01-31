@@ -39,12 +39,12 @@ response=$(make_request POST users "{\"username\": \"ronmoerman\",\"name\": \"Ro
 echo "Response: $response"
 user1_id=$(echo $response | jq -r '.pk')
 echo "User1 ID: $user1_id - $USER1_PASSWORD"
-response=$(make_request POST "users/$user1_id/set_password" "{\"password\": \"${USER1_PASSWORD}\"}")
+response=$(make_request POST "users/$user1_id/set_password" "{\"password\": \"$USER1_PASSWORD\"}")
 echo $reponse
 response=$(make_request POST users "{\"username\": \"arnielmoerman\",\"name\": \"Arniël\",\"is_active\": true,\"last_login\": null,\"groups\": [\"$familie_group_id\"],\"email\": \"arniel@moerman.online\",\"attributes\": {},\"path\": \"users\",\"type\": \"internal\"}")
 echo "Response: $response"
 user2_id=$(echo $response | jq -r '.pk')
-response=$(make_request POST users/$user2_id/set_password "{\"password\": \"${USER2_PASSWORD}\"}")
+response=$(make_request POST users/$user2_id/set_password "{\"password\": \"$USER2_PASSWORD\"}")
 echo $reponse
 
 response=$(make_request POST users "{\"username\": \"mennomoerman\",\"name\": \"Menno\",\"is_active\": true,\"last_login\": null,\"groups\": [\"$familie_group_id\"],\"email\": \"mennonm20@gmail.com\",\"attributes\": {},\"path\": \"users\",\"type\": \"internal\"}")
