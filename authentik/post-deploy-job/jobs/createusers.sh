@@ -25,7 +25,6 @@ make_request() {
 # Function to create a group
 create_group() {
   local name=$1
-  local parent_id=$2
   make_request "POST" "core/groups/" '{"name": "$name", "parent": "")'
   group_id=$(echo $response | jq -r '.id')
   echo $group_id
