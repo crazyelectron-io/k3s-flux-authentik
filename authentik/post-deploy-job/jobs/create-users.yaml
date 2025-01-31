@@ -6,7 +6,7 @@ metadata:
   labels:
     name: authentik-user-accounts
 spec:
-  backoffLimit: 4
+  backoffLimit: 1
   template:
     spec:
       restartPolicy: Never
