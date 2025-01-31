@@ -33,7 +33,15 @@ create_group() {
 
 echo ".......... Creating Groups ............"
 
-# familie_group_id=$(create_group "Familie" "")
+familie_group_id=$(create_group "Familie")
 grafana_group_id=$(create_group "GrafanaAdmin")
-# echo "Familie group ID: $familie_group_id"
+echo "Familie group ID: $familie_group_id"
 echo "Grafana group ID: $grafana_group_id"
+
+echo ".......... Creating Users ............"
+
+user1_id=$(create_user "ronmoerman" "Ron" "ron@moerman.online" "$familie_group_id" "$grafana_group_id")
+user2_id=$(create_user "arnielmoerman" "Arniël" "arniel@moerman.online" "$familie_group_id")
+user3_id=$(create_user "mennomoerman" "Menno" "mennonm20@gmail.com" "$familie_group_id")
+
+echo "........... Users Created ............"
