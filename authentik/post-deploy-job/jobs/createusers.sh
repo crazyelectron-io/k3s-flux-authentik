@@ -25,8 +25,10 @@ make_request() {
 echo ".......... Creating Groups ............"
 
 response=$(make_request POST groups '{"name": "Familie", "parent": null}')
+echo "Response: $response"
 familie_group_id=$(echo $response | jq -r '.id')
 response=$(make_request POST groups '{"name": "GrafanaAdmin", "parent": null}')
+echo "Response: $response"
 grafana_group_id=$(echo $response | jq -r '.id')
 echo "Familie group ID: $familie_group_id"
 echo "Grafana group ID: $grafana_group_id"
