@@ -38,7 +38,7 @@ echo ".......... Creating Users ............"
 response=$(make_request POST users "{\"username\": \"ronmoerman\",\"name\": \"Ron\",\"is_active\": true,\"last_login\": null,\"groups\": [\"$familie_group_id\",\"$grafana_group_id\"],\"email\": \"ron@moerman.online\",\"attributes\": {},\"path\": \"users\",\"type\": \"internal\"}")
 echo "Response: $response"
 user1_id=$(echo $response | jq -r '.pk')
-echo "User1 ID: $user1_id"
+echo "User1 ID: $user1_id - $USER1_PASSWORD"
 response=$(make_request POST "users/$user1_id/set_password" "{\"password\": \"${USER1_PASSWORD}\"}")
 echo $reponse
 response=$(make_request POST users "{\"username\": \"arnielmoerman\",\"name\": \"Arniël\",\"is_active\": true,\"last_login\": null,\"groups\": [\"$familie_group_id\"],\"email\": \"arniel@moerman.online\",\"attributes\": {},\"path\": \"users\",\"type\": \"internal\"}")
