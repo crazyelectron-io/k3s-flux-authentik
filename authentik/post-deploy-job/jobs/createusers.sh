@@ -9,3 +9,24 @@ AUTHENTIK_URL="https://auth.moerman.online/api/v3"
 # API_TOKEN is passed in environment variable
 
 # --- Common functions
+
+# Function to make API requests
+make_request() {
+  local method=$1
+  local endpoint=$2
+  local data=$3
+  curl -v -s -X "$method" "$AUTHENTIK_URL/$endpoint" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Bearer $API_TOKEN" \
+    -d "$data"
+}
+
+# Function to create a group
+create_group() {
+  local name=$1
+  local parent_id=$2
+  make_request "POST" "core/groups/" '{"name": "$name", "parent": "$parent_id"}'
+  group_id=$(echo $response | jq -r '.id')
+  echo $group_id
+}

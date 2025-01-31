@@ -17,6 +17,12 @@ spec:
           volumeMounts:
           - name: script-volume
             mountPath: /mnt/scripts
+          env:
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cluster-var-secrets
+                  key: SECRET_AUTHENTIK_BOOTSTRAP_TOKEN
       initContainers:
       - name: init-permissions
         image: debian:12.6-slim
