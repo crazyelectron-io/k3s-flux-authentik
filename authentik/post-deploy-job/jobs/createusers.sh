@@ -25,7 +25,8 @@ make_request() {
 # Function to create a group
 create_group() {
   local name=$1
-  make_request "POST" "core/groups/" '{"name": "$name", "parent": "")'
+  response=$(make_request "POST" "core/groups/" '{"name": "$name", "parent": "")')
+#   echo $response
   group_id=$(echo $response | jq -r '.id')
   echo $group_id
 }
@@ -39,8 +40,8 @@ echo "Grafana group ID: $grafana_group_id"
 
 echo ".......... Creating Users ............"
 
-user1_id=$(create_user "ronmoerman" "Ron" "ron@moerman.online" "$familie_group_id" "$grafana_group_id")
-user2_id=$(create_user "arnielmoerman" "Arniël" "arniel@moerman.online" "$familie_group_id")
-user3_id=$(create_user "mennomoerman" "Menno" "mennonm20@gmail.com" "$familie_group_id")
+# user1_id=$(create_user "ronmoerman" "Ron" "ron@moerman.online" "$familie_group_id" "$grafana_group_id")
+# user2_id=$(create_user "arnielmoerman" "Arniël" "arniel@moerman.online" "$familie_group_id")
+# user3_id=$(create_user "mennomoerman" "Menno" "mennonm20@gmail.com" "$familie_group_id")
 
 echo "........... Users Created ............"
