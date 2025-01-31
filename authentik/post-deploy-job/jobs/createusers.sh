@@ -35,6 +35,6 @@ echo "Grafana group ID: $grafana_group_id"
 
 echo ".......... Creating Users ............"
 
-response=$(make_request POST users '{"username": "ronmoerman","name": "Ron","is_active": true,"last_login": null,"groups": ["$familie_group_id","$grafana_group_id"],"email": "ron@moerman.online","attributes": {},"path": "users","type": "internal"}')
+response=$(make_request POST users "{\"username\": \"ronmoerman\",\"name\": \"Ron\",\"is_active\": true,\"last_login\": null,\"groups\": [\"$familie_group_id\",\"$grafana_group_id\"],\"email\": \"ron@moerman.online\",\"attributes\": {},\"path\": \"users\",\"type\": \"internal\"}")
 echo "Response: $response"
-user1_id = $(echo $response | jq -r '.pk')
+user1_id=$(echo $response | jq -r '.pk')
