@@ -23,6 +23,16 @@ spec:
                 secretKeyRef:
                   name: cluster-secret-vars
                   key: SECRET_AUTHENTIK_TOKEN
+            - name: USER1_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cluster-secret-vars
+                  key: SECRET_AUTHENTIK_USER1_PASSWORD
+            - name: USER2_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cluster-secret-vars
+                  key: SECRET_AUTHENTIK_USER2_PASSWORD
       initContainers:
       - name: init-permissions
         image: debian:12.6-slim
