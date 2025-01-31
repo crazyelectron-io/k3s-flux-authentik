@@ -15,20 +15,43 @@ make_request() {
   local method=$1
   local endpoint=$2
   local data=$3
-  curl -v -s -X "$method" "$AUTHENTIK_URL/$endpoint" \
+  curl -v -s -X $method $AUTHENTIK_URL/core/$endpoint/ \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer $API_TOKEN" \
-    -d "$data"
+    -d $data
 }
 
 # Function to create a group
 create_group() {
   local name=$1
-  response=$(make_request "POST" "core/groups/" '{"name": "$name", "parent": "")')
-#   echo $response
+  response=$(make_request POST groups '{"name": "$name", "parent": "")')
+  echo $response
   group_id=$(echo $response | jq -r '.id')
-  echo $group_id
+#   echo $group_id
+}
+
+# Function to create a user, add it to multiple groups and return the user_id
+create_user() {
+  local username=$1
+  local name=$2
+  local email=$3
+  shift 3
+  local groups=("@")
+  groups_json=$(printf '%s\n' "${groups[@]}" | jq -R . | jq -s .)
+  make_request POST users '{
+    "username": "$username",
+    "name": "$name",
+    "is_active": true,
+    "last_login": "",
+    "groups": $groups_json,
+    "email": "$email",
+    "attributes": {},
+    "path": "users",
+    "type": "internal"
+  }'
+  user_id=$(echo $response | jq -r '.id')
+  echo $user_id
 }
 
 echo ".......... Creating Groups ............"
@@ -40,8 +63,9 @@ echo "Grafana group ID: $grafana_group_id"
 
 echo ".......... Creating Users ............"
 
-# user1_id=$(create_user "ronmoerman" "Ron" "ron@moerman.online" "$familie_group_id" "$grafana_group_id")
+user1_id=$(create_user "ronmoerman" "Ron" "ron@moerman.online" "$familie_group_id" "$grafana_group_id")
 # user2_id=$(create_user "arnielmoerman" "Arniël" "arniel@moerman.online" "$familie_group_id")
 # user3_id=$(create_user "mennomoerman" "Menno" "mennonm20@gmail.com" "$familie_group_id")
+echo "User 1 ID: $user1_id"
 
 echo "........... Users Created ............"
