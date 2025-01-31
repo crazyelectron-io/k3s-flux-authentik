@@ -22,7 +22,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: cluster-secret-vars
-                  key: SECRET_AUTHENTIK_BOOTSTRAP_TOKEN
+                  key: SECRET_AUTHENTIK_TOKEN
       initContainers:
       - name: init-permissions
         image: debian:12.6-slim

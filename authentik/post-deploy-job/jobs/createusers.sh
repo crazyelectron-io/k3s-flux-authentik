@@ -31,3 +31,10 @@ create_group() {
   group_id=$(echo $response | jq -r '.id')
   echo $group_id
 }
+
+echo ".......... Creating Groups ............"
+
+# familie_group_id=$(create_group "Familie" "")
+# grafana_group_id=$(create_group "GrafanaAdmin" "")
+# echo "Familie group ID: $familie_group_id"
+# echo "Grafana group ID: $grafana_group_id"
