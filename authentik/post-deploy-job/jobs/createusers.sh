@@ -26,7 +26,7 @@ make_request() {
 create_group() {
   local name=$1
   local parent_id=$2
-  make_request "POST" "core/groups/" '{"name": "$name", "parent": "$parent_id"}'
+  make_request "POST" "core/groups/" '{"name": "$name", "parent": "")'
   group_id=$(echo $response | jq -r '.id')
   echo $group_id
 }
@@ -34,6 +34,6 @@ create_group() {
 echo ".......... Creating Groups ............"
 
 # familie_group_id=$(create_group "Familie" "")
-grafana_group_id=$(create_group "GrafanaAdmin" "")
+grafana_group_id=$(create_group "GrafanaAdmin")
 # echo "Familie group ID: $familie_group_id"
 echo "Grafana group ID: $grafana_group_id"
