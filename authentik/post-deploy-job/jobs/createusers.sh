@@ -22,19 +22,12 @@ make_request() {
     -d "$data"
 }
 
-# Function to create a group
-create_group() {
-#   local name=$1
-  response=$(make_request POST groups '{"name": "$1", "parent": null}')
-  echo $response
-#   group_id=$(echo $response | jq -r '.id')
-#   echo $group_id
-}
-
 echo ".......... Creating Groups ............"
 
-familie_group_id=$(create_group "Familie")
-grafana_group_id=$(create_group "GrafanaAdmin")
+response=$(make_request POST groups '{"name": "Familie", "parent": null}')
+familie_group_id=$(echo $response | jq -r '.id')
+response=$(make_request POST groups '{"name": "GrafanaAdmin", "parent": null}')
+grafana_group_id=$(echo $response | jq -r '.id')
 echo "Familie group ID: $familie_group_id"
 echo "Grafana group ID: $grafana_group_id"
 
