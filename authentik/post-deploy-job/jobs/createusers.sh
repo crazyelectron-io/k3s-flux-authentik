@@ -32,27 +32,18 @@ create_group() {
 }
 
 # Function to create a user, add it to multiple groups and return the user_id
-create_user() {
-  local username=$1
-  local name=$2
-  local email=$3
-  shift 3
-  local groups=("@")
-  groups_json=$(printf '%s\n' "${groups[@]}" | jq -R . | jq -s .)
-  make_request POST users '{
-    "username": "$username",
-    "name": "$name",
-    "is_active": true,
-    "last_login": "",
-    "groups": $groups_json,
-    "email": "$email",
-    "attributes": {},
-    "path": "users",
-    "type": "internal"
-  }'
-  user_id=$(echo $response | jq -r '.id')
-  echo $user_id
-}
+# create_user() {
+#   local username=$1
+#   local name=$2
+#   local email=$3
+#   shift 3
+#   local groups=("@")
+#   groups_json=$(printf '%s\n' "${groups[@]}" | jq -R . | jq -s .)
+#   response=$(make_request POST users '{"username": "$username","name": "$name","is_active": true,"last_login": "","groups": $groups_json,"email": "$email","attributes": {},"path": "users","type": "internal"}')
+#   echo $response
+#   user_id=$(echo $response | jq -r '.id')
+# #   echo $user_id
+# }
 
 echo ".......... Creating Groups ............"
 
