@@ -7,7 +7,6 @@ apt-get install --no-install-recommends --no-install-suggests curl jq ca-certifi
 # --- Global variables
 AUTHENTIK_URL="https://auth.moerman.online/api/v3"
 # API_TOKEN is passed in environment variable
-echo "API token: $API_TOKEN"
 
 # --- Common functions
 
@@ -35,6 +34,6 @@ create_group() {
 echo ".......... Creating Groups ............"
 
 # familie_group_id=$(create_group "Familie" "")
-# grafana_group_id=$(create_group "GrafanaAdmin" "")
+grafana_group_id=$(create_group "GrafanaAdmin" "")
 # echo "Familie group ID: $familie_group_id"
-# echo "Grafana group ID: $grafana_group_id"
+echo "Grafana group ID: $grafana_group_id"
